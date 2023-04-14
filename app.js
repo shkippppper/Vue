@@ -9,6 +9,7 @@ const app =  Vue.createApp({
   methods:{
     addCounter(num){
       this.counter +=num;
+      
     },
     
     reduceCounter(num){
