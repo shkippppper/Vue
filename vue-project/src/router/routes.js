@@ -3,6 +3,7 @@ import About from '../views/About.vue'
 import Generator from '../views/Generator.vue'
 import TermsOfUse from '../views/TermsOfUse.vue'
 import TrueRandom from '../views/TrueRandom.vue'
+import Authentication from '../views/Authentication.vue'
 
 
 export default [
@@ -30,5 +31,10 @@ export default [
         path: '/true-random',
         name: 'trueRandom',
         component: TrueRandom
+    },
+    {
+        path: '/authentication',
+        name: 'authentication',
+        component: Authentication
     }
 ]

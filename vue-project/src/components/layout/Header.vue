@@ -1,39 +1,44 @@
 <template>
   <header>
     <div class="logo">
-              
-        <router-link :to="{ name: 'trueRandom' }">
-            <img src="../../assets/Pokeball.png" alt="Random Pokemon Team Generator Logo">   
-        </router-link> 
-       
+      <router-link :to="{ name: 'trueRandom' }">
+        <img
+          src="../../assets/Pokeball.png"
+          alt="Random Pokemon Team Generator Logo"
+        />
+      </router-link>
     </div>
-    <h1>Random Pokemon Team Generator</h1>
+    <h1>RPTG</h1>
     <nav>
       <ul>
         <li><router-link :to="{ name: 'home' }">Home</router-link></li>
         <li><router-link :to="{ name: 'generator' }">Generate</router-link></li>
         <li><router-link :to="{ name: 'about' }">About</router-link></li>
+        <li><router-link :to="{ name: 'authentication' }">Login</router-link></li>
       </ul>
     </nav>
+
   </header>
 </template>
 
 <script>
-export default{
-    methods: {
-        goHome(){
-            this.$router.push({name: 'home'})
-        }
-    },
-}
+export default {
+  data() {
+    return {
+      showLogin: true,
+    };
+  },
+  methods: {
+    goHome() {
+      this.$router.push({ name: "home" });
+    }
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
 
 <style scoped>
-
 header {
   display: flex;
   justify-content: space-between;
@@ -53,7 +58,7 @@ header {
 
 .logo h1 {
   font-size: 2rem;
-  margin: 0;
+  margin-right: auto;
 }
 
 nav ul {
@@ -81,4 +86,7 @@ nav a:hover {
   background-color: #ffffff;
   color: #e94b3c;
 }
+
+
+
 </style>

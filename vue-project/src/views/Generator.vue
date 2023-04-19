@@ -7,7 +7,7 @@
 <style scoped>
 
 main{
-    height: calc(100vh - 245px);
+    height: calc(100vh - 210px);
 
 }
 

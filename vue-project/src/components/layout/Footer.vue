@@ -23,6 +23,10 @@ footer {
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  width: calc(100vw - 52px);
 }
 
 nav ul {
@@ -47,4 +51,9 @@ nav a {
 nav a:hover {
   color: #e94b3c;
 }
+
+footer p{
+  margin: 0px 0px auto;
+}
+
 </style>

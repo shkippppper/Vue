@@ -48,7 +48,10 @@ export default {
   }
 
   #content{
-    padding: 10px;
+    position: relative;
+    height: 100%;
+    padding: 10px 10px 52px 10px;
+
   }
 
 </style>

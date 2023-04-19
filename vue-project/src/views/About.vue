@@ -110,7 +110,7 @@ nav a.active {
 /* Main styles */
 main {
   max-width: 800px;
-  margin: 20px auto;
+  margin: 15px auto;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
