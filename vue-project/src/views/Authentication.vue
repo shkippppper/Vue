@@ -11,6 +11,7 @@
           Password:
           <input type="password" v-model="loginPassword" class="form-input" required>
         </label>
+
         <button type="submit" class="form-button">Login</button>
       </form>
 
@@ -28,6 +29,7 @@
           Password:
           <input type="password" v-model="registerPassword" class="form-input" required>
         </label>
+        <!-- <span v-if="Object.keys(errors).length > 0">{{ errors }}</span> -->
         <button type="submit" class="form-button">Register</button>
       </form>
     </div>
@@ -114,6 +116,9 @@ background-color: #a52424;
 </style>
 
 <script>
+import {ajax, apiUrls} from "../api/urls" 
+import token from '../api/token'
+
 export default {
   data() {
     return {
@@ -121,19 +126,72 @@ export default {
       loginPassword: '',
       registerName: '',
       registerEmail: '',
-      registerPassword: ''
+      registerPassword: '',
+      loginDetails : {
+        email : "",
+        password : "",
+        // username : "asd1@asd.com",
+      },
+      registerDetails : {
+        regName: "",
+        regEmail: "",
+        regPassword: ""
+      },
+
+      errors: {}
+
     }
+    
+
+
   },
   methods: {
+    
     login() {
-      // Implement your login logic here
-      console.log('Logging in with email:', this.loginEmail, 'and password:', this.loginPassword);
-      // After successful login, redirect to dashboard or home page
+
+      this.loginDetails.email = this.loginEmail;
+      this.loginDetails.password = this.loginPassword
+
+      return ajax
+      .post(apiUrls.login, this.loginDetails)
+      .then(response => {
+        token.setToken(response.data.token)
+
+        const route = this.$route.query.nextUrl || { name: 'home' }
+
+        this.$emit('updateUserData', { route: route })
+
+      })
+
     },
     register() {
-      // Implement your registration logic here
-      console.log('Registering with name:', this.registerName, 'email:', this.registerEmail, 'and password:', this.registerPassword);
-      // After successful registration, redirect to login page or automatically log in the user
+
+      this.registerDetails.regName = this.registerName;
+      this.registerDetails.regEmail = this.registerEmail;
+      this.registerDetails.regPassword = this.registerPassword;
+
+      this.registerDetails.first_name = this.registerDetails.regName;
+      this.registerDetails.email = this.registerDetails.regEmail;
+      this.registerDetails.password = this.registerDetails.regPassword;
+      this.registerDetails.password2 = this.registerDetails.regPassword;
+      this.registerDetails.company_name= 'Pok',
+      this.registerDetails.last_name = 'Brawler';
+      this.registerDetails.phone = '000000000';
+
+
+      return ajax
+      .post(apiUrls.register, this.registerDetails)
+      .then(response => {
+        token.setToken(response.data.token)
+
+        const route = this.$route.query.nextUrl || { name: 'home' }
+
+        this.$emit('updateUserData', { route: route })
+        this.errors = {}
+      })
+      .catch(err => {
+        this.errors = err.response.data
+      })
     }
   }
 }

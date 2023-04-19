@@ -13,8 +13,9 @@
       <ul>
         <li><router-link :to="{ name: 'home' }">Home</router-link></li>
         <li><router-link :to="{ name: 'generator' }">Generate</router-link></li>
-        <li><router-link :to="{ name: 'about' }">About</router-link></li>
-        <li><router-link :to="{ name: 'authentication' }">Login</router-link></li>
+        <!-- <li><router-link :to="{ name: 'about' }">About</router-link></li> -->
+        <li v-if="!userLoggedIn"><router-link :to="{ name: 'authentication' }">Login</router-link></li>
+        <li v-if="userLoggedIn"><router-link :to="{ name: 'profile' }">Me</router-link></li>
       </ul>
     </nav>
 
@@ -22,7 +23,15 @@
 </template>
 
 <script>
+import token from "../../api/token"
+
 export default {
+  computed: {
+    userLoggedIn() {
+      const accessToken = token.getToken();
+      return accessToken !== null && accessToken !== undefined;
+    }
+  },
   data() {
     return {
       showLogin: true,

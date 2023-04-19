@@ -7,9 +7,9 @@
       </section>
   
       <section>
-        <h2>Contact Us</h2>
-        <p>If you have any questions or feedback about our website, please feel free to contact us using the form below:</p>
-        <form @submit.prevent="submitForm">
+        <!-- <h2>Contact Us</h2>
+        <p>If you have any questions or feedback about our website, please feel free to contact us using the form below:</p> -->
+        <!-- <form @submit.prevent="submitForm">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required v-model="name" @input="inputFirstName">
   
@@ -20,7 +20,7 @@
           <textarea id="message" name="message" rows="5" required v-model="company_name" @input="inputMessage"></textarea>
   
           <button type="submit" @click="register">Send</button>
-        </form>
+        </form> -->
       </section>
     </main>
   </template>

@@ -4,6 +4,8 @@ import Generator from '../views/Generator.vue'
 import TermsOfUse from '../views/TermsOfUse.vue'
 import TrueRandom from '../views/TrueRandom.vue'
 import Authentication from '../views/Authentication.vue'
+import Profile from '../views/Profile.vue'
+import Logout from '../views/Logout.vue'
 
 
 export default [
@@ -36,5 +38,15 @@ export default [
         path: '/authentication',
         name: 'authentication',
         component: Authentication
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
+    },
+    {
+        path: '/logout',
+        name: 'logout',
+        component: Logout,
     }
 ]

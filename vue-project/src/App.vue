@@ -2,16 +2,56 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/layout/Header.vue'
 import Footer from './components/layout/Footer.vue'
+import token from './api/token'
+import { authAjax, apiUrls } from './api/urls'
+
 
 export default {
   components: {
     RouterView,
     HeaderDefault: Header,
     FooterDefault: Footer
+  },
+  data() {
+    return {
+      userData: {}
+    }
+  },
+  mounted() {
+    if (token.getToken() && this.$route.name !== 'logout') {
+      this.getUser()
+    }
+  },
+  methods: {
+    getUser({
+      route
+    } = {}) {
+      return authAjax()
+        .get(apiUrls.userData)
+        .then(response => {
+
+          if (token.getToken()) {
+            this.userData = response.data
+          }
+
+          if (route) {
+            this.$router.push(route)
+          }
+        })
+        .catch(e => {
+          token.clearToken()
+        })
+    },
+    clearUser({
+      route
+    } = {}) {
+      this.userData = {}
+      if (route) {
+        this.$router.push(route)
+      }
+    }
   }
 }
-
-
 </script>
 
 <template>
@@ -19,7 +59,7 @@ export default {
     <HeaderDefault class="headR" />
 
     <main>
-      <RouterView />
+      <RouterView  :userData="userData" @updateUserData="getUser" @clearUserData="clearUser" />
     </main>
 
     <FooterDefault class="footR"/>
