@@ -1,33 +1,26 @@
 <template>
-    <main>
-      <section>
-        <h2>About Us</h2>
-        <p>We are a team of Pokemon enthusiasts who love to experiment with different teams in the Pokemon games. We created this website to help other fans like us who want to quickly generate random teams for their playthroughs without having to spend time researching and selecting each individual Pokemon.</p>
-        <p>Our team consists of experienced developers who have a passion for coding and designing websites that are both functional and visually appealing. We used the latest web technologies to create this website, and we are constantly updating it to ensure that it remains relevant and useful to our users.</p>
-      </section>
-  
-      <section>
-        <!-- <h2>Contact Us</h2>
-        <p>If you have any questions or feedback about our website, please feel free to contact us using the form below:</p> -->
-        <!-- <form @submit.prevent="submitForm">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required v-model="name" @input="inputFirstName">
-  
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required v-model="email" @input="inputEmail">
-  
-          <label for="message">Message:</label>
-          <textarea id="message" name="message" rows="5" required v-model="company_name" @input="inputMessage"></textarea>
-  
-          <button type="submit" @click="register">Send</button>
-        </form> -->
-      </section>
-    </main>
-  </template>
+  <main>
+    <section>
+      <h2>About Us {{ $store.state.akaki }}</h2>
+      <p>
+        We are a team of Pokemon enthusiasts who love to experiment with
+        different teams in the Pokemon games. We created this website to help
+        other fans like us who want to quickly generate random teams for their
+        playthroughs without having to spend time researching and selecting each
+        individual Pokemon.
+      </p>
+      <p>
+        Our team consists of experienced developers who have a passion for
+        coding and designing websites that are both functional and visually
+        appealing. We used the latest web technologies to create this website,
+        and we are constantly updating it to ensure that it remains relevant and
+        useful to our users.
+      </p>
+    </section>
+  </main>
+</template>
 
 <style scoped>
-
-
 /* Reset styles */
 * {
   margin: 0;
@@ -43,7 +36,8 @@ body {
   background-color: #f2f2f2;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: bold;
   text-align: center;
 }
@@ -107,7 +101,6 @@ nav a.active {
   border-bottom: 2px solid #f44336;
 }
 
-/* Main styles */
 main {
   max-width: 800px;
   margin: 15px auto;
@@ -139,7 +132,8 @@ label {
   margin-bottom: 5px;
 }
 
-input, textarea {
+input,
+textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -152,7 +146,8 @@ textarea {
   max-height: 400px;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: #f44336;
 }
@@ -163,45 +158,48 @@ button[type="submit"] {
 </style>
 
 <script>
-    import { ajax, apiUrls } from '../api/urls.js'
+  export default {
 
-    export default {
-    data() {
-        return {
-            registrationData: {
-                first_name: '',
-                email: '',
-                company_name: '',
 
-                password: '123',
-                password2: '123',
-                last_name: 'user',
-                phone: '000000000',
-            },
-            errors: {}
-        }
-    },
-    methods: {
-        inputFirstName(e) {
-            this.registrationData.first_name = e.target.value
-        },
-        inputEmail(e) {
-            this.registrationData.email = e.target.value
-        },
-        inputMessage(e) {
-            this.registrationData.company_name = e.target.value
-        },
-        register() {
-            return ajax
-                .post(apiUrls.register, this.registrationData)
-                .then(response => {
-                    this.$emit('updateUserData', { route: { name: 'home' } })
-                    this.errors = {}
-                })
-                .catch(err => {
-                    this.errors = err.response.data
-                })
-        }
-    }
-    }
+  }
+// import { ajax, apiUrls } from '../api/urls.js'
+// export default {
+// data() {
+//     return {
+//         registrationData: {
+//             first_name: '',
+//             email: '',
+//             company_name: '',
+
+//             password: '123',
+//             password2: '123',
+//             last_name: 'user',
+//             phone: '000000000',
+//         },
+//         errors: {}
+//     }
+// },
+// methods: {
+//     inputFirstName(e) {
+//         this.registrationData.first_name = e.target.value
+//     },
+//     inputEmail(e) {
+//         this.registrationData.email = e.target.value
+//     },
+//     inputMessage(e) {
+//         this.registrationData.company_name = e.target.value
+//     },
+//     register() {
+//         return ajax
+//             .post(apiUrls.register, this.registrationData)
+//             .then(response => {
+//                 this.$emit('updateUserData', { route: { name: 'home' } })
+//                 this.errors = {}
+//             })
+//             .catch(err => {
+//                 this.errors = err.response.data
+//             })
+//     }
+// }
+// }
 </script>

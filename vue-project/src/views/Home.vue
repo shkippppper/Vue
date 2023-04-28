@@ -1,37 +1,28 @@
 <template>
   <BaseWrapper>
     <div class="home">
-      
       <main>
-        <h1 ref="welcomeMessage">Welcome to the Random Pokemon Team Generator!</h1>
+        <h1 ref="welcomeMessage">
+          Welcome to the Random Pokemon Team Generator!
+        </h1>
         <p>
           Generate a random team of six Pokemon for your next playthrough with
           just one click!
         </p>
-        <router-link to="/random-team-generator"><button>Generate Now</button></router-link>
-        
+        <router-link to="/random-team-generator"
+          ><button>Generate Now</button></router-link
+        >
       </main>
-
     </div>
   </BaseWrapper>
 </template>
 
 <script>
-
-import BaseWrapper from '../components/layout/BaseWrapper.vue'
-
-
-
-export default{
-
-}
-
-
-
+import BaseWrapper from "../components/layout/BaseWrapper.vue";
+export default {};
 </script>
 
 <style scoped>
-
 nav {
   display: flex;
   justify-content: space-between;
@@ -100,5 +91,4 @@ footer {
   background-color: #333;
   color: #fff;
 }
-
-</style> 
+</style>

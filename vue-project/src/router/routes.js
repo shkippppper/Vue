@@ -43,6 +43,9 @@ export default [
         path: '/profile',
         name: 'profile',
         component: Profile,
+        meta: {
+            protected: true
+        }
     },
     {
         path: '/logout',

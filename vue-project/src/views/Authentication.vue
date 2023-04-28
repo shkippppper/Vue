@@ -2,34 +2,58 @@
   <div class="container">
     <div class="form-container">
       <h2 class="form-title">Login</h2>
-      <form @submit.prevent="login" class="form">
+      <form @submit.prevent="$store.dispatch('authentication/login')" class="form">
         <label class="form-label">
           Email:
-          <input type="email" v-model="loginEmail" class="form-input" required>
+          <input
+            type="email"
+            v-model="$store.state.authentication.loginEmail"
+            class="form-input"
+            required
+          />
         </label>
         <label class="form-label">
           Password:
-          <input type="password" v-model="loginPassword" class="form-input" required>
+          <input
+            type="password"
+            v-model="$store.state.authentication.loginPassword"
+            class="form-input"
+            required
+          />
         </label>
 
         <button type="submit" class="form-button">Login</button>
       </form>
 
       <h2 class="form-title">Register</h2>
-      <form @submit.prevent="register" class="form">
+      <form @submit.prevent="$store.dispatch('authentication/register')" class="form">
         <label class="form-label">
           Name:
-          <input type="text" v-model="registerName" class="form-input" required>
+          <input
+            type="text"
+            v-model="$store.state.authentication.registerName"
+            class="form-input"
+            required
+          />
         </label>
         <label class="form-label">
           Email:
-          <input type="email" v-model="registerEmail" class="form-input" required>
+          <input
+            type="email"
+            v-model="$store.state.authentication.registerEmail"
+            class="form-input"
+            required
+          />
         </label>
         <label class="form-label">
           Password:
-          <input type="password" v-model="registerPassword" class="form-input" required>
+          <input
+            type="password"
+            v-model="$store.state.authentication.registerPassword"
+            class="form-input"
+            required
+          />
         </label>
-        <!-- <span v-if="Object.keys(errors).length > 0">{{ errors }}</span> -->
         <button type="submit" class="form-button">Register</button>
       </form>
     </div>
@@ -105,94 +129,79 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.2s ease-in
+  transition: all 0.2s ease-in;
 }
 
 .form-button:hover {
-background-color: #a52424;
+  background-color: #a52424;
 }
-
-
 </style>
 
 <script>
-import {ajax, apiUrls} from "../api/urls" 
-import token from '../api/token'
+import { ajax, apiUrls } from "../api/urls";
+import token from "../api/token";
 
 export default {
   data() {
     return {
-      loginEmail: '',
-      loginPassword: '',
-      registerName: '',
-      registerEmail: '',
-      registerPassword: '',
-      loginDetails : {
-        email : "",
-        password : "",
-        // username : "asd1@asd.com",
+      loginEmail: "",
+      loginPassword: "",
+      registerName: "",
+      registerEmail: "",
+      registerPassword: "",
+      loginDetails: {
+        email: "",
+        password: "",
+        username: "asd1@asd.com",
       },
-      registerDetails : {
+      registerDetails: {
         regName: "",
         regEmail: "",
-        regPassword: ""
+        regPassword: "",
       },
 
-      errors: {}
-
-    }
-    
-
-
+      errors: {},
+    };
   },
   methods: {
-    
     login() {
-
-      this.loginDetails.email = this.loginEmail;
-      this.loginDetails.password = this.loginPassword
-
-      return ajax
-      .post(apiUrls.login, this.loginDetails)
-      .then(response => {
-        token.setToken(response.data.token)
-
-        const route = this.$route.query.nextUrl || { name: 'home' }
-
-        this.$emit('updateUserData', { route: route })
-
-      })
-
+      this.$store
+        .dispatch("login", {
+          email: this.loginEmail,
+          password: this.loginPassword,
+          route: this.$route.query.nextUrl || { name: "home" }
+        })
+        .then(() => {
+          const route = this.$route.query.nextUrl || { name: "home" };
+          this.$emit("updateUserData", { route: route });
+        })
+        .catch((err) => {
+          this.errors = err.response.data;
+        });
     },
+
     register() {
+      const registerDetails = {
+        name: this.registerName,
+        email: this.registerEmail,
+        password: this.registerPassword,
+        first_name: this.registerName,
+        last_name: "Brawler",
+        phone: "000000000",
+        company_name: "Pok",
+      };
 
-      this.registerDetails.regName = this.registerName;
-      this.registerDetails.regEmail = this.registerEmail;
-      this.registerDetails.regPassword = this.registerPassword;
-
-      this.registerDetails.first_name = this.registerDetails.regName;
-      this.registerDetails.email = this.registerDetails.regEmail;
-      this.registerDetails.password = this.registerDetails.regPassword;
-      this.registerDetails.password2 = this.registerDetails.regPassword;
-      this.registerDetails.company_name= 'Pok',
-      this.registerDetails.last_name = 'Brawler';
-      this.registerDetails.phone = '000000000';
-
-
-      return ajax
-      .post(apiUrls.register, this.registerDetails)
-      .then(response => {
-        token.setToken(response.data.token)
-
-        const route = this.$route.query.nextUrl || { name: 'home' }
-
-        this.$emit('updateUserData', { route: route })
-        this.errors = {}
-      })
-      .catch(err => {
-        this.errors = err.response.data
-      })
-    }
-  }
-}
+      this.$store
+        .dispatch("register", registerDetails)
+        .then(() => {
+          const route = this.$route.query.nextUrl || { name: "home" };
+          this.$emit("updateUserData", { route: route });
+          this.errors = {};
+        })
+        .catch((err) => {
+          this.errors = err.response.data;
+        });
+    },
+  },
+};
 </script>
