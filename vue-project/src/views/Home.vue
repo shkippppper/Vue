@@ -48,7 +48,6 @@ nav {
   text-decoration: none;
 }
 
-/* main content styles */
 main {
   margin: 10px 0px;
   display: flex;
@@ -82,7 +81,6 @@ button:hover {
   color: #333;
 }
 
-/* footer styles */
 footer {
   display: flex;
   justify-content: center;

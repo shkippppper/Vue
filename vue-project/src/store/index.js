@@ -8,9 +8,13 @@ const store = createStore({
     authentication: authentication,
   },
 
-  state() {
+   state: {
 
   },
+
+  mutations: {
+
+  }
 });
 
 export default store;

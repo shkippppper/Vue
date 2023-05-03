@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="logo">
-      <router-link :to="{ name: 'trueRandom' }">
+      <router-link :to="{ name: 'home' }">
         <img
           src="../../assets/Pokeball.png"
           alt="Random Pokemon Team Generator Logo"
@@ -14,7 +14,7 @@
         <li><router-link :to="{ name: 'home' }">Home</router-link></li>
         <li><router-link :to="{ name: 'generator' }">Generate</router-link></li>
         <!-- <li><router-link :to="{ name: 'about' }">About</router-link></li> -->
-        <li v-if="!userLoggedIn"><router-link :to="{ name: 'authentication' }">Login</router-link></li>
+        <li v-if="!userLoggedIn"><router-link :to="{ name: 'authentication' }">Sign In</router-link></li>
         <li v-if="userLoggedIn"><router-link :to="{ name: 'profile' }">Me</router-link></li>
       </ul>
     </nav>

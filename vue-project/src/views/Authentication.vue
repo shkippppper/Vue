@@ -1,72 +1,98 @@
 <template>
-  <div class="container">
-    <div class="form-container">
-      <h2 class="form-title">Login</h2>
-      <form @submit.prevent="$store.dispatch('authentication/login')" class="form">
-        <label class="form-label">
-          Email:
-          <input
-            type="email"
-            v-model="$store.state.authentication.loginEmail"
-            class="form-input"
-            required
-          />
-        </label>
-        <label class="form-label">
-          Password:
-          <input
-            type="password"
-            v-model="$store.state.authentication.loginPassword"
-            class="form-input"
-            required
-          />
-        </label>
+  <div class="all">
+    <div class="container">
+      <div class="form-container" :class="{ active: isLoginActive, inactive: !isLoginActive }">
+        <h2 class="form-title">Login</h2>
+        <form
+          @submit.prevent="$store.dispatch('authentication/login')"
+          class="form"
+        >
+          <label class="form-label">
+            Email:
+            <input
+              type="email"
+              v-model="$store.state.authentication.loginEmail"
+              class="form-input"
+              required
+            />
+          </label>
+          <label class="form-label">
+            Password:
+            <input
+              type="password"
+              v-model="$store.state.authentication.loginPassword"
+              class="form-input"
+              required
+            />
+          </label>
 
-        <button type="submit" class="form-button">Login</button>
-      </form>
+          <button type="submit" class="form-button">Login</button>
+          <p>Not a member? <strong @click="toggleActive">Sign Up</strong></p>
+        </form>
+      </div>
+    </div>
 
-      <h2 class="form-title">Register</h2>
-      <form @submit.prevent="$store.dispatch('authentication/register')" class="form">
-        <label class="form-label">
-          Name:
-          <input
-            type="text"
-            v-model="$store.state.authentication.registerName"
-            class="form-input"
-            required
-          />
-        </label>
-        <label class="form-label">
-          Email:
-          <input
-            type="email"
-            v-model="$store.state.authentication.registerEmail"
-            class="form-input"
-            required
-          />
-        </label>
-        <label class="form-label">
-          Password:
-          <input
-            type="password"
-            v-model="$store.state.authentication.registerPassword"
-            class="form-input"
-            required
-          />
-        </label>
-        <button type="submit" class="form-button">Register</button>
-      </form>
+    <div class="container">
+      <div class="form-container" :class="{ active: !isLoginActive, inactive: isLoginActive }">
+        <h2 class="form-title">Register</h2>
+        <form
+          @submit.prevent="$store.dispatch('authentication/register')"
+          class="form"
+        >
+          <label class="form-label">
+            Name:
+            <input
+              type="text"
+              v-model="$store.state.authentication.registerName"
+              class="form-input"
+              required
+            />
+          </label>
+          <label class="form-label">
+            Email:
+            <input
+              type="email"
+              v-model="$store.state.authentication.registerEmail"
+              class="form-input"
+              required
+            />
+          </label>
+          <label class="form-label">
+            Password:
+            <input
+              type="password"
+              v-model="$store.state.authentication.registerPassword"
+              class="form-input"
+              required
+            />
+          </label>
+          <button type="submit" class="form-button">Register</button>
+          <p>Already a member? <strong @click="toggleActive">Sign In</strong></p>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
-<style>
-.container {
+<style scoped>
+.container{
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.active{
+  position: absolute;
+  top: 200px;
+  transform: translate(0px);
+}
+
+.inactive{
+  position: absolute;
+  top: 200px;
+  transform: translate(-1000px);
 }
 
 .title {
@@ -87,6 +113,7 @@
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
   width: 80%;
   max-width: 500px;
+  transition: transform 0.2s ease-in;
 }
 
 .form-title {
@@ -135,6 +162,26 @@
 .form-button:hover {
   background-color: #a52424;
 }
+
+p {
+  font-size: 1.2rem;
+  color: #e94b3c;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  width: 100%;
+  margin: 20px;
+}
+
+p strong {
+  all: unset;
+  color: black;
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+
+p strong:hover {
+  color: #e94b3c;
+}
 </style>
 
 <script>
@@ -161,6 +208,8 @@ export default {
       },
 
       errors: {},
+
+      isLoginActive: true,
     };
   },
   methods: {
@@ -169,7 +218,7 @@ export default {
         .dispatch("login", {
           email: this.loginEmail,
           password: this.loginPassword,
-          route: this.$route.query.nextUrl || { name: "home" }
+          route: this.$route.query.nextUrl || { name: "home" },
         })
         .then(() => {
           const route = this.$route.query.nextUrl || { name: "home" };
@@ -202,6 +251,14 @@ export default {
           this.errors = err.response.data;
         });
     },
+
+    toggleActive(){
+      if(this.isLoginActive){
+        this.isLoginActive = false;
+      }else{
+        this.isLoginActive = true;
+      }
+    }
   },
 };
 </script>

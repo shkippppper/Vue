@@ -16,19 +16,25 @@
         and we are constantly updating it to ensure that it remains relevant and
         useful to our users.
       </p>
+      <h2>Contact Us</h2>
+
+      <p>
+        If you have any questions about these Terms, please contact us at
+        <a href="mailto:contact@randompokemongenerator.com"
+          >contact@randompokemongenerator.com</a
+        >.
+      </p>
     </section>
   </main>
 </template>
 
 <style scoped>
-/* Reset styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Global styles */
 body {
   font-family: Arial, sans-serif;
   font-size: 16px;
@@ -65,7 +71,6 @@ button:hover {
   background-color: #222;
 }
 
-/* Header styles */
 header {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -115,7 +120,6 @@ section {
 
 section h2 {
   font-size: 28px;
-  margin-bottom: 10px;
 }
 
 section p {
@@ -132,36 +136,17 @@ label {
   margin-bottom: 5px;
 }
 
-input,
-textarea {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
+p a{
+  color: #d45840;
 }
 
-textarea {
-  resize: vertical;
-  min-height: 100px;
-  max-height: 400px;
-}
-
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #f44336;
-}
-
-button[type="submit"] {
-  align-self: flex-start;
+h2{
+  margin: 30px
 }
 </style>
 
 <script>
-  export default {
-
-
-  }
+export default {};
 // import { ajax, apiUrls } from '../api/urls.js'
 // export default {
 // data() {

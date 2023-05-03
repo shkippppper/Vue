@@ -65,7 +65,6 @@ export default {
         .post(apiUrls.login, state.loginDetails)
         .then((response) => {
           token.setToken(response.data.token);
-          //   const route = this.$route.query.nextUrl || { name: "home" };
 
           commit("setErrors", {});
           //   return route;
@@ -83,7 +82,7 @@ export default {
         .then((response) => {
           token.setToken(response.data.token);
 
-          return route;
+          // return route;
         })
         .catch((err) => {
           console.log(err);

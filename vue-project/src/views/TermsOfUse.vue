@@ -45,13 +45,6 @@
       course of performance.
     </p>
 
-    <h2>Governing Law</h2>
-
-    <p>
-      These Terms shall be governed and construed in accordance with the laws of
-      the United States, without regard to its conflict of law provisions.
-    </p>
-
     <h2>Changes</h2>
 
     <p>
@@ -61,14 +54,7 @@
       constitutes a material change will be determined at our sole discretion.
     </p>
 
-    <h2>Contact Us</h2>
 
-    <p>
-      If you have any questions about these Terms, please contact us at
-      <a href="mailto:contact@randompokemongenerator.com"
-        >contact@randompokemongenerator.com</a
-      >.
-    </p>
   </div>
 </template>
 
