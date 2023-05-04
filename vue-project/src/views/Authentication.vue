@@ -1,26 +1,26 @@
 <template>
   <div class="all">
     <div class="container">
-      <div class="form-container" :class="{ active: isLoginActive, inactive: !isLoginActive }">
+      <div
+        class="form-container"
+        :class="{ active: isLoginActive, inactive: !isLoginActive }"
+      >
         <h2 class="form-title">Login</h2>
-        <form
-          @submit.prevent="$store.dispatch('authentication/login')"
-          class="form"
-        >
+        <form @submit.prevent="submitLoginForm" class="form">
           <label class="form-label">
             Email:
-            <input
-              type="email"
-              v-model="$store.state.authentication.loginEmail"
-              class="form-input"
-              required
-            />
+            <input 
+              type="email" 
+              v-model="email" 
+              class="form-input" 
+              required 
+              />
           </label>
           <label class="form-label">
             Password:
             <input
               type="password"
-              v-model="$store.state.authentication.loginPassword"
+              v-model="password"
               class="form-input"
               required
             />
@@ -33,17 +33,25 @@
     </div>
 
     <div class="container">
-      <div class="form-container" :class="{ active: !isLoginActive, inactive: isLoginActive }">
+      <div
+        class="form-container"
+        :class="{ active: !isLoginActive, inactive: isLoginActive }"
+      >
         <h2 class="form-title">Register</h2>
         <form
-          @submit.prevent="$store.dispatch('authentication/register')"
-          class="form"
-        >
+          @submit.prevent="submitRegisterForm" class="form">
           <label class="form-label">
-            Name:
+            First Name:
             <input
               type="text"
-              v-model="$store.state.authentication.registerName"
+              v-model="registerFirstName"
+              class="form-input"
+              required
+            />
+            Second Name:
+            <input
+              type="text"
+              v-model="registerSecondName"
               class="form-input"
               required
             />
@@ -52,7 +60,7 @@
             Email:
             <input
               type="email"
-              v-model="$store.state.authentication.registerEmail"
+              v-model="registerEmail"
               class="form-input"
               required
             />
@@ -61,21 +69,73 @@
             Password:
             <input
               type="password"
-              v-model="$store.state.authentication.registerPassword"
+              v-model="registerPassword"
               class="form-input"
               required
             />
           </label>
           <button type="submit" class="form-button">Register</button>
-          <p>Already a member? <strong @click="toggleActive">Sign In</strong></p>
+          <p>
+            Already a member? <strong @click="toggleActive">Sign In</strong>
+          </p>
         </form>
       </div>
     </div>
   </div>
 </template>
 
+<script>
+import { mapState, mapActions, mapMutations } from "vuex";
+import router from "../router"
+
+export default {
+  data() {
+    return {
+      isLoginActive: true,
+      email: "", //username
+      password: "",
+      registerEmail: "",
+      registerPassword: "",
+      registerFirstName: "",
+      registerSecondName: "",
+    };
+  },
+  methods: {
+    toggleActive() {
+      if (this.isLoginActive) {
+        this.isLoginActive = false;
+      } else {
+        this.isLoginActive = true;
+      }
+    },
+
+    ...mapActions("authentication", ["login"]),
+    ...mapActions("authentication", ["register"]),
+
+    submitLoginForm() {
+      const loginData = {
+        email: this.email,
+        password: this.password,
+        username: this.email,
+      };
+      this.login({loginData, router: this.$router });
+    },
+
+    submitRegisterForm() {
+      const registerData = {
+        registerEmail: this.registerEmail,
+        registerPassword: this.registerPassword,
+        registerFirstName: this.registerFirstName,
+        registerSecondName: this.registerSecondName,
+      };
+      this.register({registerData, router: this.$router });
+    },
+  },
+};
+</script>
+
 <style scoped>
-.container{
+.container {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -83,13 +143,13 @@
   justify-content: center;
 }
 
-.active{
+.active {
   position: absolute;
   top: 200px;
   transform: translate(0px);
 }
 
-.inactive{
+.inactive {
   position: absolute;
   top: 200px;
   transform: translate(-1000px);
@@ -183,82 +243,3 @@ p strong:hover {
   color: #e94b3c;
 }
 </style>
-
-<script>
-import { ajax, apiUrls } from "../api/urls";
-import token from "../api/token";
-
-export default {
-  data() {
-    return {
-      loginEmail: "",
-      loginPassword: "",
-      registerName: "",
-      registerEmail: "",
-      registerPassword: "",
-      loginDetails: {
-        email: "",
-        password: "",
-        username: "asd1@asd.com",
-      },
-      registerDetails: {
-        regName: "",
-        regEmail: "",
-        regPassword: "",
-      },
-
-      errors: {},
-
-      isLoginActive: true,
-    };
-  },
-  methods: {
-    login() {
-      this.$store
-        .dispatch("login", {
-          email: this.loginEmail,
-          password: this.loginPassword,
-          route: this.$route.query.nextUrl || { name: "home" },
-        })
-        .then(() => {
-          const route = this.$route.query.nextUrl || { name: "home" };
-          this.$emit("updateUserData", { route: route });
-        })
-        .catch((err) => {
-          this.errors = err.response.data;
-        });
-    },
-
-    register() {
-      const registerDetails = {
-        name: this.registerName,
-        email: this.registerEmail,
-        password: this.registerPassword,
-        first_name: this.registerName,
-        last_name: "Brawler",
-        phone: "000000000",
-        company_name: "Pok",
-      };
-
-      this.$store
-        .dispatch("register", registerDetails)
-        .then(() => {
-          const route = this.$route.query.nextUrl || { name: "home" };
-          this.$emit("updateUserData", { route: route });
-          this.errors = {};
-        })
-        .catch((err) => {
-          this.errors = err.response.data;
-        });
-    },
-
-    toggleActive(){
-      if(this.isLoginActive){
-        this.isLoginActive = false;
-      }else{
-        this.isLoginActive = true;
-      }
-    }
-  },
-};
-</script>

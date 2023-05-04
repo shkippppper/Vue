@@ -1,17 +1,8 @@
 <template>
   <div class="pokemon-generator">
-    <div class="generator-header">
-      <button class="create" @click="createPokemonTeam">
-        Generate Team
-      </button>
-    </div>
     <div class="generator-content">
       <div class="team">
-        <div
-          v-for="(pokemon, index) in pokemonTeam"
-          :key="index"
-          class="card"
-        >
+        <div class="card">
           <div class="id">#{{ pokemon.pokemonId }}</div>
           <div
             class="image"
@@ -32,8 +23,7 @@
 </template>
 
 <script>
-
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -61,13 +51,14 @@ export default {
     };
   },
   computed: {
-    ...mapState('teamGenerator', ["pokemonTeam"])
+    ...mapState("singlePokemonGenerator", ['pokemon']),
   },
-
   methods: {
-    ...mapActions("teamGenerator", ["createPokemonTeam"]),
-
-  }
+    ...mapActions("singlePokemonGenerator", ["createPokemon"]),
+  },
+  mounted() {
+    this.createPokemon()
+  },
 };
 </script>
 
@@ -84,23 +75,16 @@ body {
   background-image: linear-gradient(to right, #caffd3, #f9ffc9);
 }
 
-.team {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
 
 .card {
   text-align: center;
   width: 200px;
   height: 300px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  margin: 50px;
+  margin: 10px;
   border-radius: 20px;
   background-color: white;
+  padding: 1px;
 }
 
 .card .image {
@@ -162,28 +146,6 @@ body {
   background-color: rgba(215, 215, 215, 0.5);
   border-radius: 5px;
 }
-
-button {
-  left: 50%;
-  position: fixed;
-  bottom: 5%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border-color: #d45840;
-  background-color: #d45840;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 10px;
-}
-
-button:hover {
-  background-color: #fff;
-  color: #d45840;
-}
-
 
 .total-power {
   position: fixed;

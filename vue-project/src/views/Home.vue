@@ -2,9 +2,7 @@
   <BaseWrapper>
     <div class="home">
       <main>
-        <h1 ref="welcomeMessage">
-          Welcome to the Random Pokemon Team Generator!
-        </h1>
+        <h1>Welcome to the Random Pokemon Team Generator!</h1>
         <p>
           Generate a random team of six Pokemon for your next playthrough with
           just one click!
@@ -12,14 +10,21 @@
         <router-link to="/random-team-generator"
           ><button>Generate Now</button></router-link
         >
+        <h1 class="rpotd">Pokemon Of The Day</h1>
+        <RandomDailyPokemonGenerator class="pokemon" />
       </main>
     </div>
   </BaseWrapper>
 </template>
 
 <script>
+import RandomDailyPokemonGenerator from "../components/generate/RandomDailyPokemonGenerator.vue";
 import BaseWrapper from "../components/layout/BaseWrapper.vue";
-export default {};
+export default {
+  components: {
+    RandomDailyPokemonGenerator,
+  },
+};
 </script>
 
 <style scoped>
@@ -61,7 +66,7 @@ main {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 38px;
   text-align: center;
   margin-bottom: 30px;
 }
@@ -88,5 +93,10 @@ footer {
   height: 50px;
   background-color: #333;
   color: #fff;
+}
+
+
+.rpotd{
+  margin-top: 50px;
 }
 </style>
