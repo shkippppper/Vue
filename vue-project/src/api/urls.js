@@ -27,5 +27,6 @@ export const apiUrls = {
 
     // category urls
     productCategories: '/rest/widgets/category/header_listing/',
+    categoryWidgets: (categorySlug) => `/rest/widgets/category/${categorySlug}/`
 }
 

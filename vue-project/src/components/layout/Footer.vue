@@ -6,6 +6,7 @@
         <li><router-link :to="{ name: 'trueRandom' }">True Random</router-link></li>
         <li><router-link :to="{ name: 'terms' }">Terms of Use</router-link></li>
         <li><router-link :to="{ name: 'about' }">About Us</router-link></li>
+        <li><router-link :to="{ name: 'categories', params: {slug : 'dining-chairs'} }">Categories</router-link></li>
       </ul>
     </nav>
   </footer>

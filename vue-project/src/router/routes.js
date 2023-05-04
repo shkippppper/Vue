@@ -6,7 +6,7 @@ import TrueRandom from '../views/TrueRandom.vue'
 import Authentication from '../views/Authentication.vue'
 import Profile from '../views/Profile.vue'
 import Logout from '../views/Logout.vue'
-
+import Categories from "../views/Categories.vue"
 
 export default [
     {
@@ -51,5 +51,12 @@ export default [
         path: '/logout',
         name: 'logout',
         component: Logout,
+    },
+    {
+        path: '/categories/:slug',
+        name: 'categories',
+        component: Categories,
+        props: true
+
     }
 ]
